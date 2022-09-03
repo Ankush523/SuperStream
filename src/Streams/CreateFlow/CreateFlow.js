@@ -154,6 +154,7 @@ export const CreateFlow = () => {
 
   return (
     <div>
+        <a href='presentbalance'><button>Get Present Balance</button></a>
       <h2>Create a Flow</h2>
       {currentAccount === "" ? (
         <button id="connectWallet" className="button" onClick={connectWallet}>

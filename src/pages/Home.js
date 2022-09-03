@@ -1,7 +1,8 @@
 import React from "react";
+import "../Style/home.css"
 const Home = () => {
   return (
-    <div>
+    <div className="maindiv">
       {/* <img src={Bg} className="w-[100vw] h-[100vh]" /> */}
       <div>
         <label>Stream your Recurring Payments</label>

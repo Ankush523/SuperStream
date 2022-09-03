@@ -7,7 +7,7 @@ import "./deleteFlow.css";
 //where the Superfluid logic takes place
 async function deleteFlow(recipient) {
   const sf = await Framework.create({
-    chainId: 5,
+    chainId: 80001,
     provider: customHttpProvider
   });
 
