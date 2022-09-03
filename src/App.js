@@ -1,14 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
-import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { BrowserRouter,Routes,Route } from "react-router-dom";
+import Home from "./pages/Home";
+import PlanCreate from "./pages/PlanCreate";
+import PlanList from "./pages/PlanList";
+import StartPage from "./pages/StartPage";
 
-function App() {
+export default function App() {
   return (
     <div className="App">
-      
-      <ConnectButton/>
+     <BrowserRouter>
+     <Routes>
+      <Route path='/' element={<Home/>}/>
+      <Route path='/startpage' element={<StartPage/>}/>
+      <Route path='/plancreate' element={<PlanCreate/>}/>
+      <Route path='/planlist' element={<PlanList/>}/>
+     </Routes>
+     </BrowserRouter>
     </div>
   );
 }
-
-export default App;
