@@ -13,7 +13,6 @@ export default function App() {
   return (
     <div className="App">
      <BrowserRouter>
-     <ConnectButton/>
      <Routes>
       <Route path='/' element={<Home/>}/>
       <Route path='/startpage' element={<StartPage/>}/>

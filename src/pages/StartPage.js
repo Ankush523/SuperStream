@@ -1,8 +1,8 @@
 import React from "react";
-
+import "../Style/startpage.css"
 const StartPage = () => {
   return (
-    <div className="bg-[#151019] h-[100vh] w-[100vw] p-[220px]">
+    <div class="p-3 mb-2 bg-dark text-white">
 
         <label className="text-white text-[40px] font-montserrat">How would you like to Continue as </label>
       <div className="flex flex-row justify-around pt-[20px]">

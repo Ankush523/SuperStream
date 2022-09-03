@@ -1,6 +1,8 @@
+import './presentBalance.css'
 import React, { useEffect, useState } from 'react'
 import GetProvider from '../../hooks/GetProvider'
 import { Framework } from "@superfluid-finance/sdk-core";
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 const PresentBalance = () => {
     const [balance,setBalance] = useState(0)
@@ -34,8 +36,11 @@ const PresentBalance = () => {
 
   return (
     <div>
+        <ConnectButton/>
+        <div className='balances'>
+        
         <button onClick={()=>getSuperfluid()}>Present Balance : {(balance.toString())}</button>
-
+        </div>
         <a href='/deleteflow'><button>Delete Flow</button></a>
     </div>
   )

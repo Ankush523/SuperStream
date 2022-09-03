@@ -4,7 +4,7 @@ const Home = () => {
   return (
     <div className="maindiv">
       {/* <img src={Bg} className="w-[100vw] h-[100vh]" /> */}
-      <div>
+      <div >
         <label>Stream your Recurring Payments</label>
         <div>
           <a href="/startpage">

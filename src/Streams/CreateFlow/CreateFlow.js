@@ -10,6 +10,7 @@ import {
 } from "react-bootstrap";
 import "./createFlow.css";
 import { ethers } from "ethers";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 // let account;
 
@@ -154,6 +155,7 @@ export const CreateFlow = () => {
 
   return (
     <div>
+           <ConnectButton/>
         <a href='presentbalance'><button>Get Present Balance</button></a>
       <h2>Create a Flow</h2>
       {currentAccount === "" ? (
