@@ -26,14 +26,16 @@ const PlanList = () => {
       <br />
       <div>
         <div>
-          <label>Candidate List</label>
+          <label>Plan List</label>
         </div>
         <div>
           {Object.keys(planList).map((list, index) => (
             <div>
               <div>
-                <label>{(planList[index].amount).toString()}</label>
+                <label>{(planList[index].amount).toString()} </label>
+
                 <label>{(planList[index].frequency).toString()}</label>
+                <a href='createflow'><button>Subscribe</button></a>
               </div>
               <br />
               <br />
