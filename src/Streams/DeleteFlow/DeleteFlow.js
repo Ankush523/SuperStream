@@ -86,13 +86,6 @@ export const DeleteFlow = () => {
           Click to Delete Your Stream
         </DeleteButton>
       </Form>
-
-      <div className="description">
-        <p>
-          Go to the DeleteFlow.js component and look at the <b>deleteFlow() </b>
-          function to see under the hood
-        </p>
-      </div>
     </div>
   );
 };

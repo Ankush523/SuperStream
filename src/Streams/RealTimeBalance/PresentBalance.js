@@ -39,10 +39,14 @@ const PresentBalance = () => {
         <ConnectButton/>
       
         <h1>VIEW YOUR STREAM AND CURRENT WALLET BALANCE</h1>
-        <div className='balances'>
-        <button onClick={()=>getSuperfluid()}>Present Balance : {(balance.toString())}</button>
+        <div >
+        <button className='balances' onClick={()=>getSuperfluid()}>Present Balance : {(balance.toString())} DAIx</button>
         </div>
-        <a href='/deleteflow'><button>Delete Flow</button></a>
+        <br/>
+        <br/>
+        
+        <a href='/deleteflow'><button className='deletebutton'>Delete Flow</button></a>
+
     </div>
   )
 }
