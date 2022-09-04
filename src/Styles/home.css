@@ -14,3 +14,12 @@
   .heading{
     font-size: 45px;
   }
+
+  .maindiv{
+    display: flex;
+    flex-direction: column;
+    width: screen;
+    height: screen;
+    justify-content:center;
+
+  }
