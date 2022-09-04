@@ -156,7 +156,7 @@ export const CreateFlow = () => {
   return (
     <div>
            <ConnectButton/>
-        <a href='presentbalance'><button>Get Present Balance</button></a>
+      
       <h2>Create a Flow</h2>
       {currentAccount === "" ? (
         <button id="connectWallet" className="button" onClick={connectWallet}>
@@ -211,6 +211,8 @@ export const CreateFlow = () => {
           </p>
         </div>
       </div>
+      <br/>
+      <a href='presentbalance'><button>Get Present Balance</button></a>
     </div>
   );
 };
