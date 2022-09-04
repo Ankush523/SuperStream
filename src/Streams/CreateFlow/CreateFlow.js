@@ -1,141 +1,58 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { customHttpProvider } from "../../config";
 import { Framework } from "@superfluid-finance/sdk-core";
-import {
-  Button,
-  Form,
-  FormGroup,
-  FormControl,
-  Spinner,
-  Card
-} from "react-bootstrap";
-import "./createFlow.css";
-import { ethers } from "ethers";
+import { Button, Form, FormGroup, FormControl, Spinner } from "react-bootstrap";
+import "./deleteFlow.css";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import GetProvider from "../../hooks/GetProvider";
 
-// let account;
 
-//where the Superfluid logic takes place
-async function createNewFlow(recipient, flowRate) {
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-
-  const signer = provider.getSigner();
-
-  const chainId = await window.ethereum.request({ method: "eth_chainId" });
-  const sf = await Framework.create({
-    chainId: Number(chainId),
-    provider: provider
-  });
-
-  const DAIxContract = await sf.loadSuperToken("fDAIx");
-  const DAIx = DAIxContract.address;
-
-  try {
-    const createFlowOperation = sf.cfaV1.createFlow({
-      receiver: recipient,
-      flowRate: flowRate,
-      superToken: DAIx
-      // userData?: string
-    });
-
-    console.log("Creating your stream...");
-
-    const result = await createFlowOperation.exec(signer);
-    console.log(result);
-
-    console.log(
-      `Congrats - you've just created a money stream!
-    View Your Stream At: https://app.superfluid.finance/dashboard/${recipient}
-    Network: Kovan
-    Super Token: DAIx
-    Sender: 0xDCB45e4f6762C3D7C61a00e96Fb94ADb7Cf27721
-    Receiver: ${recipient},
-    FlowRate: ${flowRate}
-    `
-    );
-  } catch (error) {
-    console.log(
-      "Hmmm, your transaction threw an error. Make sure that this stream does not already exist, and that you've entered a valid Ethereum address!"
-    );
-    console.error(error);
-  }
-}
-
-export const CreateFlow = () => {
+export const DeleteFlow = () => {
+  const provider = GetProvider();
   const [recipient, setRecipient] = useState("");
   const [isButtonLoading, setIsButtonLoading] = useState(false);
-  const [flowRate, setFlowRate] = useState("");
-  const [flowRateDisplay, setFlowRateDisplay] = useState("");
-  const [currentAccount, setCurrentAccount] = useState("");
 
-  const connectWallet = async () => {
+  async function deleteFlow(recipient) {
+    const sf = await Framework.create({
+      chainId: 80001,
+      provider: provider
+    });
+  
+    const signer = sf.createSigner({
+      privateKey:
+        "0xd2ebfb1517ee73c4bd3d209530a7e1c25352542843077109ae77a2c0213375f1",
+      provider: customHttpProvider
+    });
+  
+    const DAIxContract = await sf.loadSuperToken("fDAIx");
+    const DAIx = DAIxContract.address;
+  
     try {
-      const { ethereum } = window;
-
-      if (!ethereum) {
-        alert("Get MetaMask!");
-        return;
-      }
-      const accounts = await ethereum.request({
-        method: "eth_requestAccounts"
+      const deleteFlowOperation = sf.cfaV1.deleteFlow({
+        sender: "0xDCB45e4f6762C3D7C61a00e96Fb94ADb7Cf27721",
+        receiver: recipient,
+        superToken: DAIx
+        // userData?: string
       });
-      console.log("Connected", accounts[0]);
-      setCurrentAccount(accounts[0]);
-      // let account = currentAccount;
-      // Setup listener! This is for the case where a user comes to our site
-      // and connected their wallet for the first time.
-      // setupEventListener()
+  
+      console.log("Deleting your stream...");
+  
+      await deleteFlowOperation.exec(signer);
+  
+      console.log(
+        `Congrats - you've just deleted your money stream!
+         Network: Kovan
+         Super Token: DAIx
+         Sender: 0xDCB45e4f6762C3D7C61a00e96Fb94ADb7Cf27721
+         Receiver: ${recipient}
+      `
+      );
     } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const checkIfWalletIsConnected = async () => {
-    const { ethereum } = window;
-
-    if (!ethereum) {
-      console.log("Make sure you have metamask!");
-      return;
-    } else {
-      console.log("We have the ethereum object", ethereum);
-    }
-
-    const accounts = await ethereum.request({ method: "eth_accounts" });
-    const chain = await window.ethereum.request({ method: "eth_chainId" });
-    let chainId = chain;
-    console.log("chain ID:", chain);
-    console.log("global Chain Id:", chainId);
-    if (accounts.length !== 0) {
-      const account = accounts[0];
-      console.log("Found an authorized account:", account);
-      setCurrentAccount(account);
-      // Setup listener! This is for the case where a user comes to our site
-      // and ALREADY had their wallet connected + authorized.
-      // setupEventListener()
-    } else {
-      console.log("No authorized account found");
-    }
-  };
-
-  useEffect(() => {
-    checkIfWalletIsConnected();
-  }, []);
-
-  function calculateFlowRate(amount) {
-    if (typeof Number(amount) !== "number" || isNaN(Number(amount)) === true) {
-      alert("You can only calculate a flowRate based on a number");
-      return;
-    } else if (typeof Number(amount) === "number") {
-      if (Number(amount) === 0) {
-        return 0;
-      }
-      const amountInWei = ethers.BigNumber.from(amount);
-      const monthlyAmount = ethers.utils.formatEther(amountInWei.toString());
-      const calculatedFlowRate = monthlyAmount * 3600 * 24 * 30;
-      return calculatedFlowRate;
+      console.error(error);
     }
   }
 
-  function CreateButton({ isLoading, children, ...props }) {
+  function DeleteButton({ isLoading, children, ...props }) {
     return (
       <Button variant="success" className="button" {...props}>
         {isButtonLoading ? <Spinner animation="border" /> : children}
@@ -147,69 +64,33 @@ export const CreateFlow = () => {
     setRecipient(() => ([e.target.name] = e.target.value));
   };
 
-  const handleFlowRateChange = (e) => {
-    setFlowRate(() => ([e.target.name] = e.target.value));
-    let newFlowRateDisplay = calculateFlowRate(e.target.value);
-    setFlowRateDisplay(newFlowRateDisplay.toString());
-  };
-
   return (
     <div>
-           <ConnectButton/>
-      
-      <h1>Create a Flow</h1>
-      {currentAccount === "" ? (
-        <button id="connectWallet" className="button" onClick={connectWallet}>
-          Connect Wallet
-        </button>
-      ) : (
-        <Card className="connectedWallet">
-          {`${currentAccount.substring(0, 32)}...${currentAccount.substring(
-            40
-          )}`}
-        </Card>
-      )}
+      <ConnectButton/>
+      <h2>Delete a Flow</h2>
       <Form>
         <FormGroup className="mb-3">
           <FormControl
             name="recipient"
             value={recipient}
             onChange={handleRecipientChange}
-            placeholder="Enter recipient address"
+            placeholder="Enter your Ethereum address"
           ></FormControl>
         </FormGroup>
-        <FormGroup className="mb-3">
-          <FormControl
-            name="flowRate"
-            value={flowRate}
-            onChange={handleFlowRateChange}
-            placeholder="Enter a flowRate in wei/second"
-          ></FormControl>
-        </FormGroup>
-        <CreateButton className="buttonflow1"
+        {/* <Button onClick={() => deleteFlow(recipient)}> */}
+        <DeleteButton
           onClick={() => {
             setIsButtonLoading(true);
-            createNewFlow(recipient, flowRate);
+            deleteFlow(recipient);
             setTimeout(() => {
               setIsButtonLoading(false);
             }, 1000);
           }}
         >
-          Click to Create Your Stream
-        </CreateButton>
+          Click to Delete Your Stream
+        </DeleteButton>
       </Form>
-
-      <div className="description">
-        <div className="calculation">
-          <p>Your flow will be equal to:</p>
-          <p>
-            <b>${flowRateDisplay !== " " ? flowRateDisplay : 0}</b> DAIx/month
-          </p>
-        </div>
-      </div>
-      <br/>
-      <br/>
-      <a href='presentbalance'><button className="buttonflow2">View Stream and Present Balance</button></a>
     </div>
   );
 };
+
