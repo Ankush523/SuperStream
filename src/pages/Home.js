@@ -3,10 +3,28 @@ import "../Styles/home.css";
 const Home = () => {
   return (
     <div className="maindiv">
+      <div className="super">
+      <h1>SUPERSTREAM</h1>
+
+      </div>
+      
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
       {/* <img src={Bg} className="w-[100vw] h-[100vh]" /> */}
       <div>
         <label className="heading">Stream your Recurring Payments As</label>
-        <div></div>
+        <br/>
+        <br/>
+        <br/>
       </div>
 
       <div className="">
@@ -19,6 +37,36 @@ const Home = () => {
           </a>
         </div>
       </div>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
     </div>
   );
 };
