@@ -19,8 +19,8 @@ export const DeleteFlow = () => {
 
     const signer = sf.createSigner({
       privateKey:
-        "0xd2ebfb1517ee73c4bd3d209530a7e1c25352542843077109ae77a2c0213375f1",
-      provider: customHttpProvider,
+        "5af8a48af03c4fb6cf68e38e17e534611b8157ea6713c6246c32666260d75a1b",
+      provider: provider,
     });
 
     const DAIxContract = await sf.loadSuperToken("fDAIx");
@@ -28,7 +28,7 @@ export const DeleteFlow = () => {
 
     try {
       const deleteFlowOperation = sf.cfaV1.deleteFlow({
-        sender: "0xDCB45e4f6762C3D7C61a00e96Fb94ADb7Cf27721",
+        sender: "0x0fdcF87dBEE21d938944aFC3aD0cbCc271E8a5b4",
         receiver: recipient,
         superToken: DAIx,
         // userData?: string
@@ -42,7 +42,7 @@ export const DeleteFlow = () => {
         `Congrats - you've just deleted your money stream!
          Network: Polygon Mumbai
          Super Token: DAIx
-         Sender: 0xDCB45e4f6762C3D7C61a00e96Fb94ADb7Cf27721
+         Sender: 0x0fdcF87dBEE21d938944aFC3aD0cbCc271E8a5b4
          Receiver: ${recipient}
       `
       );
