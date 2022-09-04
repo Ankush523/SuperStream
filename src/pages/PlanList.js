@@ -22,7 +22,7 @@ const PlanList = () => {
     <div>
       <br />
       <br />
-      <button onClick={getList}>Get List of Plans</button>
+      <button className="getlist" onClick={getList}>Get List of Plans</button>
       <br />
       <div>
         <div>

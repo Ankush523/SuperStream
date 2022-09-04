@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import GetContract from "../hooks/GetContract";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-
+import "../Styles/createPlan.css"
 const PlanCreate = () => {
   const [amount, setAmount] = useState(null);
   const [freq, setFreq] = useState(null);
@@ -16,24 +16,29 @@ const PlanCreate = () => {
 
   return(
     <div>
-    <div >
+        <ConnectButton/>
+    <div className="header1">
         <h1>WELCOME TO PLAN CREATION PORTAL</h1>
     </div>
-    <ConnectButton/>
+    
     <div >
         <div >
             <div >
-                <label >Enter Plan Details</label>
+                <label className="header2">Enter Plan Details</label>
+                <br/>
+                <br/>
                 <div >
-                    <label >Amount : </label>
-                    <input  required type="number" name="amount" onChange={(e) => setAmount(e.target.value)}/>
+                    <label className="amount-label">Amount : </label>
+                    <input className="input" required type="number" name="amount" onChange={(e) => setAmount(e.target.value)}/>
                 </div>
+                <br/>
                 <div >
-                    <label >Time Interval : </label>
-                    <input required type="number" name="frequency" onChange={(e) => setFreq(e.target.value)}/>
+                    <label className="time-label">Time Interval : </label>
+                    <input className="input" required type="number" name="frequency" onChange={(e) => setFreq(e.target.value)}/>
                 </div>
+                <br/>
                 <div >
-                    <button onClick={()=>planDetails()}>Create Plan</button>
+                    <button className="button" onClick={()=>planDetails()}>Create Plan</button>
                 </div>
             </div>
         </div>
