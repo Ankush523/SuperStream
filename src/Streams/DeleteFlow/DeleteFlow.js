@@ -3,51 +3,53 @@ import { customHttpProvider } from "../../config";
 import { Framework } from "@superfluid-finance/sdk-core";
 import { Button, Form, FormGroup, FormControl, Spinner } from "react-bootstrap";
 import "./deleteFlow.css";
-
-//where the Superfluid logic takes place
-async function deleteFlow(recipient) {
-  const sf = await Framework.create({
-    chainId: 80001,
-    provider: customHttpProvider
-  });
-
-  const signer = sf.createSigner({
-    privateKey:
-      "0xd2ebfb1517ee73c4bd3d209530a7e1c25352542843077109ae77a2c0213375f1",
-    provider: customHttpProvider
-  });
-
-  const DAIxContract = await sf.loadSuperToken("fDAIx");
-  const DAIx = DAIxContract.address;
-
-  try {
-    const deleteFlowOperation = sf.cfaV1.deleteFlow({
-      sender: "0xDCB45e4f6762C3D7C61a00e96Fb94ADb7Cf27721",
-      receiver: recipient,
-      superToken: DAIx
-      // userData?: string
-    });
-
-    console.log("Deleting your stream...");
-
-    await deleteFlowOperation.exec(signer);
-
-    console.log(
-      `Congrats - you've just deleted your money stream!
-       Network: Kovan
-       Super Token: DAIx
-       Sender: 0xDCB45e4f6762C3D7C61a00e96Fb94ADb7Cf27721
-       Receiver: ${recipient}
-    `
-    );
-  } catch (error) {
-    console.error(error);
-  }
-}
+import { ConnectButton } from "@rainbow-me/rainbowkit";
+import GetProvider from "../../hooks/GetProvider";
 
 export const DeleteFlow = () => {
+  const provider = GetProvider();
   const [recipient, setRecipient] = useState("");
   const [isButtonLoading, setIsButtonLoading] = useState(false);
+
+  async function deleteFlow(recipient) {
+    const sf = await Framework.create({
+      chainId: 80001,
+      provider: provider,
+    });
+
+    const signer = sf.createSigner({
+      privateKey:
+        "0xd2ebfb1517ee73c4bd3d209530a7e1c25352542843077109ae77a2c0213375f1",
+      provider: customHttpProvider,
+    });
+
+    const DAIxContract = await sf.loadSuperToken("fDAIx");
+    const DAIx = DAIxContract.address;
+
+    try {
+      const deleteFlowOperation = sf.cfaV1.deleteFlow({
+        sender: "0xDCB45e4f6762C3D7C61a00e96Fb94ADb7Cf27721",
+        receiver: recipient,
+        superToken: DAIx,
+        // userData?: string
+      });
+
+      console.log("Deleting your stream...");
+
+      await deleteFlowOperation.exec(signer);
+
+      console.log(
+        `Congrats - you've just deleted your money stream!
+         Network: Polygon Mumbai
+         Super Token: DAIx
+         Sender: 0xDCB45e4f6762C3D7C61a00e96Fb94ADb7Cf27721
+         Receiver: ${recipient}
+      `
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   function DeleteButton({ isLoading, children, ...props }) {
     return (
@@ -63,6 +65,7 @@ export const DeleteFlow = () => {
 
   return (
     <div>
+      <ConnectButton />
       <h2>Delete a Flow</h2>
       <Form>
         <FormGroup className="mb-3">
