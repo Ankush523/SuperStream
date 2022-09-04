@@ -33,6 +33,7 @@
 }
 
 .list-head{
+    font-weight:bolder;
     display: flex;
     justify-content: space-around;
 }

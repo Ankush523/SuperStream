@@ -157,15 +157,15 @@ export const CreateFlow = () => {
     <div>
            <ConnectButton/>
       
-      <h2>Create a Flow</h2>
+      <h1>Create a Flow</h1>
       {currentAccount === "" ? (
         <button id="connectWallet" className="button" onClick={connectWallet}>
           Connect Wallet
         </button>
       ) : (
         <Card className="connectedWallet">
-          {`${currentAccount.substring(0, 4)}...${currentAccount.substring(
-            38
+          {`${currentAccount.substring(0, 32)}...${currentAccount.substring(
+            40
           )}`}
         </Card>
       )}
@@ -186,7 +186,7 @@ export const CreateFlow = () => {
             placeholder="Enter a flowRate in wei/second"
           ></FormControl>
         </FormGroup>
-        <CreateButton
+        <CreateButton className="buttonflow1"
           onClick={() => {
             setIsButtonLoading(true);
             createNewFlow(recipient, flowRate);
@@ -200,10 +200,6 @@ export const CreateFlow = () => {
       </Form>
 
       <div className="description">
-        <p>
-          Go to the CreateFlow.js component and look at the <b>createFlow() </b>
-          function to see under the hood
-        </p>
         <div className="calculation">
           <p>Your flow will be equal to:</p>
           <p>
@@ -212,7 +208,8 @@ export const CreateFlow = () => {
         </div>
       </div>
       <br/>
-      <a href='presentbalance'><button>Get Present Balance</button></a>
+      <br/>
+      <a href='presentbalance'><button className="buttonflow2">View Stream and Present Balance</button></a>
     </div>
   );
 };

@@ -37,8 +37,9 @@ const PresentBalance = () => {
   return (
     <div>
         <ConnectButton/>
+      
+        <h1>VIEW YOUR STREAM AND CURRENT WALLET BALANCE</h1>
         <div className='balances'>
-        
         <button onClick={()=>getSuperfluid()}>Present Balance : {(balance.toString())}</button>
         </div>
         <a href='/deleteflow'><button>Delete Flow</button></a>
